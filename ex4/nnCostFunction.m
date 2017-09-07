@@ -69,7 +69,9 @@ a2 = [ones(m, 1) a2];
 z3 = a2 * Theta2';
 a3 = sigmoid(z3);
 hx = 1 / m * sum((-y .* log(a3)) - ((1-y) .* log(1 - a3)));
-J = sum(hx);
+ThetaA = Theta1(:, 2:input_layer_size+1);
+ThetaB = Theta2(:, 2:hidden_layer_size+1);
+J = sum(hx) + lambda / (2*m) * (sum(sum(ThetaA.^2)) + sum(sum(ThetaB.^2)));
 
 
 % -------------------------------------------------------------
