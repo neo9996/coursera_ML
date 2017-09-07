@@ -60,25 +60,16 @@ Theta2_grad = zeros(size(Theta2));
 %               backpropagation. That is, you can compute the gradients for
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
-%
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+X = [ones(m, 1) X];
+y = eye(num_labels)(y,:);
+z2 = X * Theta1';
+a2 = sigmoid(z2);
+a2 = [ones(m, 1) a2];
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+hx = 1 / m * sum((-y .* log(a3)) - ((1-y) .* log(1 - a3)));
+J = sum(hx);
 
 
 % -------------------------------------------------------------
