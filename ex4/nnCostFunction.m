@@ -60,6 +60,8 @@ Theta2_grad = zeros(size(Theta2));
 %               backpropagation. That is, you can compute the gradients for
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
+Delta1 = 0;
+Delta2 = 0;
 
 X = [ones(m, 1) X];
 y = eye(num_labels)(y,:);
@@ -73,6 +75,13 @@ ThetaA = Theta1(:, 2:input_layer_size+1);
 ThetaB = Theta2(:, 2:hidden_layer_size+1);
 J = sum(hx) + lambda / (2*m) * (sum(sum(ThetaA.^2)) + sum(sum(ThetaB.^2)));
 
+y == num_labels;
+D3 = a3 - y;
+D2 = D3 * ThetaB .* (a2(:, 2:end) .* (1-a2(:, 2:end)));
+Delta2 = Delta2 + D3' * a2;
+Delta1 = Delta1 + D2' * X;
+Theta1_grad = Delta1 / m;
+Theta2_grad = Delta2 / m;
 
 % -------------------------------------------------------------
 
