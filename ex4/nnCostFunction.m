@@ -80,8 +80,13 @@ D3 = a3 - y;
 D2 = D3 * ThetaB .* (a2(:, 2:end) .* (1-a2(:, 2:end)));
 Delta2 = Delta2 + D3' * a2;
 Delta1 = Delta1 + D2' * X;
-Theta1_grad = Delta1 / m;
-Theta2_grad = Delta2 / m;
+
+T1 = Theta1;
+T1(:, 1) = 0;
+Theta1_grad = (Delta1 + lambda * T1) / m;
+T2 = Theta2;
+T2(:, 1) = 0;
+Theta2_grad = (Delta2 + lambda * T2) / m;
 
 % -------------------------------------------------------------
 
